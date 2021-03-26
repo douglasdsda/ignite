@@ -1,0 +1,42 @@
+yarn init -y 
+yarn add react
+yarn add react-dom
+
+yarn add @babel/core @babel/cli @babel/preset-env -D
+
+yarn babel src/index.js --out-file dist/bundle.js
+yarn add @babel/preset-react -D
+
+yarn add webpack webpack-cli
+
+yarn add babel-loader -D
+
+yarn webpack // rodar webpack
+
+yarn add html-webpack-plugin -D
+
+yarn add webpack-dev-server -D
+
+yarn webpack serve
+
+yarn add cross-env -D // definir process env do NODE_ENV, no linux NODE_ENV=production webpack
+
+yarn add style-loader css-loader -D // css configuracao webpack
+
+yarn add sass -D
+yarn remove sass // remover sass
+yarn add node-sass -D
+yarn add sass-loader -D 
+
+yarn add -D @pmmmwh/react-refresh-webpack-plugin react-refresh 
+
+yarn add typescript -D
+
+
+yarn tsc --init
+
+yarn add @babel/preset-typescript -D
+
+npm i --save-dev @types/react-dom
+yarn add @types/react-dom -D
+yarn add @types/react -D
