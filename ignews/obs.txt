@@ -1,0 +1,34 @@
+yarn create next-app ignews
+
+
+yarn add typescript @types/react @types/node -D
+
+
+yarn add sass
+
+//scss ou sass
+
+yarn add react-icons
+
+yarn add stripe
+
+yarn add next-auth
+yarn add @types/next-auth -D
+
+yarn add faunadb
+
+yarn add axios
+
+yarn add @stripe/stripe-js
+
+http://localhost:3000/api/stripe/webhooks
+
+// //cli
+stripe login
+
+stripe listen --forward-to localhost:3000/api/webhooks
+
+yarn add @prismicio/client
+
+yarn add prismic-dom
+yarn add @types/prismic-dom -D
