@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
-
+import { useMutation } from 'react-query'
 import { RiAddLine, RiSkipBackLine } from "react-icons/ri";
 import { Input } from "../../components/Form/Input";
 
@@ -22,6 +22,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
+import { api } from "../../services/api";
+import { queryCLient } from "../../services/queryClient";
+import { useRouter } from "next/router";
 
 type CreateFormData = {
   name: string;
@@ -43,6 +46,20 @@ const createFormShema = yup.object().shape({
 });
 
 export default function CreateUser() {
+  const router = useRouter()
+  const createUser = useMutation(async (user: CreateFormData) => {
+    const response = await api.post('users', {
+      user: {...user,
+      created_at: new Date(),
+      }
+    })
+
+    return response.data.user
+  },{
+    onSuccess: () => {
+      queryCLient.invalidateQueries('users')
+    }
+  })
   const { register, handleSubmit, formState, setValue, getValues } = useForm({
     resolver: yupResolver(createFormShema),
   });
@@ -51,8 +68,8 @@ export default function CreateUser() {
 
   const handleForm: SubmitHandler<CreateFormData> = async (data, event) => {
     event.preventDefault();
-    await new Promise((resolver) => setTimeout(resolver, 2000));
-    console.log("data", data);
+    await createUser.mutateAsync(data)
+    router.push(`/users`)
   };
 
   useEffect(() => {

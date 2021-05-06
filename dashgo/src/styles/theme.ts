@@ -1,15 +1,28 @@
-import { extendTheme, useColorModeValue } from "@chakra-ui/react";
+import { mode } from "@chakra-ui/theme-tools";
+import { extendTheme } from "@chakra-ui/react";
 
- 
+const styles = {
+  global: (props) => ({
+    body: {
+      color: mode("gray.800", "whiteAlpha.900")(props),
+      bg: mode("white", "gray.900")(props),
+    },
+  }),
+};
 
-const bg = useColorModeValue("white", "gray.900")
-const color = useColorModeValue("gray.900", "gray.50")
+const components = {
+  Drawer: {
+    // setup light/dark mode component defaults
+    baseStyle: (props) => ({
+      dialog: {
+        bg: mode("gray.100", "gray.900")(props),
+      },
+    }),
+  },
+};
 
 export const theme = extendTheme({
-  config: {
-    initialColorMode: "light",
-    useSystemColorMode: true,
-  },
+  components,
   colors: {
     gray: {
       "900": "#181B23",
@@ -28,14 +41,13 @@ export const theme = extendTheme({
     heading: "Roboto",
     body: "Roboto",
   },
-  styles: {
-    global: {
-      body: {
-          bg: bg,
-         color: color,
-        // bg: "gray.900",
-        // color: "gray.50",
-      },
-    },
-  },
+  styles,
+  // styles: {
+  //   global: {
+  //     body: {
+  //       bg: "gray.900",
+  //       color: "gray.50",
+  //     },
+  //   },
+  // },
 });

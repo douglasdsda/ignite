@@ -1,4 +1,4 @@
-import { Flex, SimpleGrid, Box, Text, theme } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Box, Text, theme, useColorModeValue } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import Header from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
@@ -57,6 +57,10 @@ const options = {
 const series = [{ name: "series1", data: [31, 120, 10, 28, 61, 18, 109] }];
 
 export default function Dashboard() {
+
+  const bg = useColorModeValue("gray.100", "gray.800")
+  const color = useColorModeValue("gray.700", "gray.50")
+
   return (
     <Flex flexDir="column" h="100vh">
       <Header />
@@ -64,14 +68,14 @@ export default function Dashboard() {
         <Sidebar />
 
         <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
-          <Box p={["6","8"]} bg="gray.800" borderRadius={8} pb="4">
+          <Box p={["6","8"]} bg={bg} borderRadius={8} pb="4">
             <Text fontSize="lg" mb="4">
               Incritos da Semana
             </Text>
             <Chart type="area" height={160} series={series} options={options} />
           </Box>
 
-          <Box p={["6","8"]} bg="gray.800" borderRadius={8} pb="4">
+          <Box p={["6","8"]} bg={bg} borderRadius={8} pb="4">
             <Text fontSize="lg" mb="4">
               Taxa de abertura
             </Text>
