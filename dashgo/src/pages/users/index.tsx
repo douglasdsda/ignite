@@ -25,12 +25,29 @@ import { Sidebar } from "../../components/Sidebar";
 import NextLink from "next/link";
 import { useEffect, useState } from "react";
 
-import { useUsers } from "../../services/hooks/useUsers";
+import { getUsers, useUsers } from "../../services/hooks/useUsers";
 import { queryCLient } from "../../services/queryClient";
 import { api } from "../../services/api";
+import { GetServerSideProps } from "next";
 
-export default function UserList() {
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  createdAt: string;
+};
+
+
+type GetUsersResponse = {
+  totalCount: number;
+  users: User[];
+};
+
+export default function UserList({dataBase}) {
   const [ page, setPage] = useState(1)
+  // const { data, isLoading, error, isFetching } = useUsers(page, {
+  //   initialData: dataBase,
+  // });
   const { data, isLoading, error, isFetching } = useUsers(page);
 
   const isWideVersion = useBreakpointValue({
@@ -153,4 +170,18 @@ export default function UserList() {
       </Flex>
     </Box>
   );
+}
+
+
+export const getServerSideProps: GetServerSideProps = async () => {
+
+
+  // const {users, totalCount} = await getUsers(1)
+  const dataBase = await getUsers(1)
+
+  return {
+    props: {
+      dataBase,
+    }
+  }
 }
